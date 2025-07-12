@@ -63,6 +63,8 @@
                     <a href="/services" class="nav-item nav-link <?= ($uri->getSegment(1) == 'services') ? 'active' : '' ?>">Layanan</a>
                     <a href="/kebun/semua-kebun" class="nav-item nav-link <?= ($uri->getSegment(1) == 'kebun/semua-kebun') ? 'active' : '' ?>">Kebun</a>
                     <a href="/plants" class="nav-item nav-link <?= ($uri->getSegment(1) == 'plants') ? 'active' : '' ?>">Tanaman</a>
+                    <a href="/tanaman/form_deteksi" class="nav-item nav-link <?= ($uri->getSegment(1) == 'tanaman/form_deteksi') ? 'active' : '' ?>">Deteksi Tanaman</a>
+
                 <?php else: ?>
                     <a href="/" class="nav-item nav-link">Home</a>
                     <a href="/services" class="nav-item nav-link">Layanan</a>
@@ -77,7 +79,7 @@
                     ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img alt="" height="30" width="30" aria-hidden="true" src="<?= esc($profile) ?>">
+                            <img alt="" src="<?= esc($profile) ?>" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%;">
                             <?php
                                 if (session()->has('nama_users')) {
                                     echo session('nama_users'); 
@@ -91,8 +93,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/Pengguna/editProfile/<?php echo $user; ?>">Edit Profile</a></li>
                             <li><a class="dropdown-item" href="/kebun">Kebun Saya</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    
                         </ul>
                     </li>
                 <?php endif; ?>

@@ -11,28 +11,43 @@
 
 
     <!-- Service Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <p class="fs-5 fw-bold text-primary">Layanan kami</p>
-                <h1 class="display-5 mb-5">Layanan yang kami tawarkan untuk Anda</h1>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item rounded d-flex h-100">
-                        <div class="service-img rounded">
-                            <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/service-1.jpg" alt="">
+    <div class="container-fluid py-5 service-section">
+    <div class="container">
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <h1 class="display-7 mb-7">Layanan Garden Track</h1>
+            <p class="fs-5 fw-bold text-primary">Layanan Yang Kami Tawarkan Untuk Anda</p><br>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item d-flex h-100">
+                    <div class="service-img rounded">
+                        <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/service-6.jpg" alt="">
+                    </div>
+                    <div class="service-text rounded p-5">
+                        <div class="btn-square rounded-circle mx-auto mb-3">
+                            <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/icon/icon-7.png" alt="Icon">
                         </div>
-                        <div class="service-text rounded p-5">
-                            <div class="btn-square rounded-circle mx-auto mb-3">
-                                <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/icon/icon-3.png" alt="Icon">
-                            </div>
-                            <h4 class="mb-3">All Plants</h4>
-                            <p class="mb-4">Lihat Berbagai Jenis Tanaman Disini, Dan cari Informasinya</p>
-                            <a class="btn btn-sm" href="/plants"><i class="fa fa-plus text-primary me-2"></i>Read More</a>
-                        </div>
+                        <h4 class="mb-3">Deteksi Tanaman</h4>
+                        <p class="mb-4">Unggah Gambar Tanaman, dan sistem akan mengidentifikasi jenis tanamannya </p>
+                        <a class="btn btn-sm" href="upload_gambar"><i class="fa fa-plus text-primary me-2"></i>Deteksi Tanaman</a>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item d-flex h-100">
+                    <div class="service-img rounded">
+                        <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/service-1.jpg" alt="">
+                    </div>
+                    <div class="service-text rounded p-5">
+                        <div class="btn-square rounded-circle mx-auto mb-3">
+                            <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/icon/icon-2.png" alt="Icon">
+                        </div>
+                        <h4 class="mb-3">Cari Tanaman</h4>
+                        <p class="mb-4">Lihat Berbagai Jenis Tanaman Disini, Dan cari Informasinya</p>
+                        <a class="btn btn-sm" href="plants"><i class="fa fa-plus text-primary me-2"></i>Cari Tanaman</a>
+                    </div>
+                </div>
+            </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="service-item rounded d-flex h-100">
                         <div class="service-img rounded">
@@ -40,14 +55,15 @@
                         </div>
                         <div class="service-text rounded p-5">
                             <div class="btn-square rounded-circle mx-auto mb-3">
-                                <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/icon/icon-6.png" alt="Icon">
+                                <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/icon/icon-4.png" alt="Icon">
                             </div>
-                            <h4 class="mb-3">Vegetable Plants</h4>
-                            <p class="mb-4">Lihat Jenis Tanaman Yang Tergolong Sayuran atau Buah-Buahan Disini</p>
-                            <a class="btn btn-sm" href="/vegetable"><i class="fa fa-plus text-primary me-2"></i>Read More</a>
+                            <h4 class="mb-3">Buat Kebun Anda</h4>
+                            <p class="mb-4">Buat kebun digital anda disini, dan tambahkan tanaman</p>
+                            <a class="btn btn-sm" href="buat_kebun"><i class="fa fa-plus text-primary me-2"></i>Buat Kebun</a>
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="service-item rounded d-flex h-100">
                         <div class="service-img rounded">
@@ -55,62 +71,18 @@
                         </div>
                         <div class="service-text rounded p-5">
                             <div class="btn-square rounded-circle mx-auto mb-3">
-                                <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/icon/icon-5.png" alt="Icon">
-                            </div>
-                            <h4 class="mb-3">Irrigation & Drainage</h4>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn btn-sm" href=""><i class="fa fa-plus text-primary me-2"></i>Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item rounded d-flex h-100">
-                        <div class="service-img rounded">
-                            <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/service-4.jpg" alt="">
-                        </div>
-                        <div class="service-text rounded p-5">
-                            <div class="btn-square rounded-circle mx-auto mb-3">
-                                <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/icon/icon-4.png" alt="Icon">
-                            </div>
-                            <h4 class="mb-3">Garden Maintenance </h4>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn btn-sm" href=""><i class="fa fa-plus text-primary me-2"></i>Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item rounded d-flex h-100">
-                        <div class="service-img rounded">
-                            <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/service-5.jpg" alt="">
-                        </div>
-                        <div class="service-text rounded p-5">
-                            <div class="btn-square rounded-circle mx-auto mb-3">
                                 <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/icon/icon-8.png" alt="Icon">
                             </div>
-                            <h4 class="mb-3">Green Technology</h4>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn btn-sm" href=""><i class="fa fa-plus text-primary me-2"></i>Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item rounded d-flex h-100">
-                        <div class="service-img rounded">
-                            <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/service-6.jpg" alt="">
-                        </div>
-                        <div class="service-text rounded p-5">
-                            <div class="btn-square rounded-circle mx-auto mb-3">
-                                <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/icon/icon-2.png" alt="Icon">
-                            </div>
-                            <h4 class="mb-3">Urban Gardening</h4>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn btn-sm" href=""><i class="fa fa-plus text-primary me-2"></i>Read More</a>
+                            <h4 class="mb-3">Kelola Kebun Anda</h4>
+                            <p class="mb-4">Kelola kebun digital anda disini, lihat perkembangan tanaman anda</p>
+                            <a class="btn btn-sm" href="kelola_kebun"><i class="fa fa-plus text-primary me-2"></i>Kelola Kebun</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Service End -->
+</div>
+
 
 <?php echo $this->endSection()?>

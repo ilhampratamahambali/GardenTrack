@@ -1,5 +1,10 @@
 <?php echo $this->extend('_partials/template')?>
 <?php echo $this->section('isi')?>
+<?php if (session()->getFlashdata('error')): ?>
+    <div class="alert alert-success">
+        <?= session()->getFlashdata('error') ?>
+    </div>
+<?php endif; ?>
 
 <style>
 html {
@@ -152,9 +157,24 @@ html {
     <div class="container">
         <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
             <h1 class="display-7 mb-7">Layanan Garden Track</h1>
-            <p class="fs-5 fw-bold text-primary">Cari Tanaman Dan Buat Kebun Disini</p><br>
+            <p class="fs-5 fw-bold text-primary">Layanan Yang Kami Tawarkan Untuk Anda</p><br>
         </div>
         <div class="row g-4">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item d-flex h-100">
+                    <div class="service-img rounded">
+                        <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/service-6.jpg" alt="">
+                    </div>
+                    <div class="service-text rounded p-5">
+                        <div class="btn-square rounded-circle mx-auto mb-3">
+                            <img class="img-fluid" src="<?php echo base_url('tanaman/'); ?>img/icon/icon-7.png" alt="Icon">
+                        </div>
+                        <h4 class="mb-3">Deteksi Tanaman</h4>
+                        <p class="mb-4">Unggah Gambar Tanaman, dan sistem akan mengidentifikasi jenis tanamannya </p>
+                        <a class="btn btn-sm" href="upload_gambar"><i class="fa fa-plus text-primary me-2"></i>Deteksi Tanaman</a>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item d-flex h-100">
                     <div class="service-img rounded">
@@ -185,6 +205,7 @@ html {
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="service-item rounded d-flex h-100">
                         <div class="service-img rounded">
@@ -252,54 +273,6 @@ html {
     </div>
     <!-- Features End -->
 
-    <!-- Quote Start -->
-    <div class="container-fluid quote my-5 py-5" data-parallax="scroll" data-image-src="img/carousel-2.jpg">
-        <div class="container py-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-7">
-                    <div class="bg-white rounded p-4 p-sm-5 wow fadeIn" data-wow-delay="0.5s">
-                        <h1 class="display-5 text-center mb-5">Get A Free Quote</h1>
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control bg-light border-0" id="gname" placeholder="Gurdian Name">
-                                    <label for="gname">Your Name</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control bg-light border-0" id="gmail" placeholder="Gurdian Email">
-                                    <label for="gmail">Your Email</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control bg-light border-0" id="cname" placeholder="Child Name">
-                                    <label for="cname">Your Mobile</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control bg-light border-0" id="cage" placeholder="Child Age">
-                                    <label for="cage">Service Type</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <textarea class="form-control bg-light border-0" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
-                                    <label for="message">Message</label>
-                                </div>
-                            </div>
-                            <div class="col-12 text-center">
-                                <button class="btn btn-primary py-3 px-4" type="submit">Submit Now</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Quote End -->
 </html>
     <script>
         // Cek apakah ada session flashdata 

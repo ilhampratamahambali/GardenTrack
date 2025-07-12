@@ -24,7 +24,7 @@ class Pengguna extends BaseController
         $this->googleClient->setRedirectUri('http://localhost:8080/register/proses');
         $this->googleClient->addScope('email');
         $this->googleClient->addScope('profile');
-        $this->googleClient->addPrompt('create_account');
+        $this->googleClient->setPrompt('select_account');
     }
 
 // --=========================================|| LOGIN ||================================================--
@@ -43,9 +43,9 @@ class Pengguna extends BaseController
     public function proses_login(){
         $token = $this->googleClient->fetchAccessTokenWithAuthCode($this->request->getvar('code'));
         if (!isset($token['error'])) {
-            $this->googleClient->setAccessToken($token['access_token']);
-            session()->set('access_token', $token['access_token']);
-    
+        // Set access token
+        $this->googleClient->setAccessToken($token['access_token']);
+        session()->set('access_token', $token['access_token']);
             $googleService = new \Google_Service_Oauth2($this->googleClient);
             $data = $googleService->userinfo->get();
     
