@@ -122,9 +122,10 @@
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
                         <h4 class="text-white mb-4">Layanan</h4>
-                        <a class="btn btn-link" href="">Cari Tanaman</a>
-                        <a class="btn btn-link" href="">Buat Taman Anda</a>
-                        <a class="btn btn-link" href="">Kelola Taman Anda</a>
+                         <a class="btn btn-link" href="/tanaman/form_deteksi">Deteksi Tanaman</a>
+                        <a class="btn btn-link" href="/plants">Cari Tanaman</a>
+                        <a class="btn btn-link" href="/buat_kebun">Buat Kebun Anda</a>
+                        <a class="btn btn-link" href="/kebun">Kelola Kebun Anda</a>
                     </div>
                 </div>
             </div>
