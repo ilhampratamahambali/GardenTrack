@@ -16,10 +16,9 @@
                 <?php endif; ?>
 
                 <p><strong>Label:</strong> <?= esc($label) ?></p>
-
                 <p><strong>Deskripsi:</strong></p>
                 <div class="bg-light p-3 rounded deskripsi">
-                    <?= nl2br(esc($deskripsi)) ?>
+                    <?= $deskripsi ?> <!-- Tidak pakai esc() agar HTML bisa ditampilkan -->
                 </div>
 
                 <div class="text-center mt-4">

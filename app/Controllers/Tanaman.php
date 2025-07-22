@@ -411,7 +411,7 @@ public function ambildata()
     $currentPage = (int) ($this->request->getGet('page') ?? 1);
     if ($currentPage < 1) {
         $currentPage = 1;
-    }
+    } 
 
     // API Endpoint untuk mengambil data tanaman sayuran
     $response = $client->get($this->baseUrl, [
@@ -742,80 +742,113 @@ public function ambildata()
     }
 
     //============================= HASIL PREDIKSI ====================================//
-    public function hasil()
-    {
-        $image = $this->request->getFile('gambar');
+ public function hasil()
+{
+    $image = $this->request->getFile('gambar');
 
-        if ($image->isValid() && !$image->hasMoved()) {
-            $newName = $image->getRandomName();
-            $image->move(ROOTPATH . 'public/uploads', $newName);
+    if ($image->isValid() && !$image->hasMoved()) {
+        $newName = $image->getRandomName();
+        $imagePath = ROOTPATH . 'public/uploads/' . $newName;
+        $image->move(ROOTPATH . 'public/uploads', $newName);
 
-            $pythonFile = ROOTPATH . 'app/ThirdParty/PythonModel/predict.py';
-            $imagePath = ROOTPATH . 'public/uploads/' . $newName;
+        $fastapiUrl = 'https://ilhamhambali-tanaman-prediksi.hf.space/predict';
 
-            $command = 'python ' . escapeshellarg($pythonFile) . ' ' . escapeshellarg($imagePath) . ' 2> ' . escapeshellarg(ROOTPATH . 'writable/logs/error.log');
-            $output = shell_exec($command);
+        try {
+            $curl = curl_init();
 
-            if (!$output) {
-                return view('Tanaman/hasil', [
-                    'gambar' => '/uploads/' . $newName,
-                    'label' => 'Tidak ada hasil',
-                    'deskripsi' => 'Script Python tidak memberikan output atau error terjadi.'
-                ]);
+            $cfile = new \CURLFile($imagePath, mime_content_type($imagePath), $newName);
+
+            curl_setopt_array($curl, [
+                CURLOPT_URL => $fastapiUrl,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => ['file' => $cfile],
+                CURLOPT_HTTPHEADER => ['Accept: application/json']
+            ]);
+
+            $response = curl_exec($curl);
+            $curlError = curl_error($curl);
+            curl_close($curl);
+
+            if ($curlError) {
+                throw new \Exception("cURL Error: $curlError");
             }
 
-            $result = json_decode($output, true);
+            $result = json_decode($response, true);
 
-            if (!$result) {
-                $errorLogPath = ROOTPATH . 'writable/logs/error.log';
-                $errorLogContent = file_exists($errorLogPath) ? file_get_contents($errorLogPath) : 'File error.log tidak ditemukan.';
-
+            if (!is_array($result) || !isset($result['label'])) {
                 return view('Tanaman/hasil', [
                     'gambar' => '/uploads/' . $newName,
                     'label' => 'Error',
-                    'deskripsi' => 'Output script Python bukan JSON.<br><br>Output:<br>' . nl2br(htmlspecialchars($output)) .
-                        '<br><br>Error Log:<br>' . nl2br(htmlspecialchars($errorLogContent))
+                    'deskripsi' => 'Respon dari API tidak valid.<br><br><code>' .
+                        nl2br(htmlspecialchars($response)) . '</code>'
                 ]);
             }
 
-            // Deskripsi array → string
-            $deskripsi = $result['deskripsi'] ?? 'Tidak ada deskripsi';
-            if (is_array($deskripsi)) {
-                $temp = '';
-                foreach ($deskripsi as $key => $val) {
-                    $temp .= ucfirst(str_replace('_', ' ', $key)) . ": " . $val . "\n\n";
-                }
-                $deskripsi = trim($temp);
-            }
-
-            // Simpan riwayat deteksi per user
-            $logPath = WRITEPATH . 'riwayat_tanaman.json';
-            $userId = session()->get('id_user');
-            $riwayat = file_exists($logPath) ? json_decode(file_get_contents($logPath), true) : [];
-
-            $riwayat[] = [
-                'id_user' => $userId,
-                'gambar' => '/uploads/' . $newName,
-                'label' => $result['label'] ?? 'Tidak ada label',
-                'deskripsi' => $deskripsi,
-                'waktu' => date('Y-m-d H:i:s')
-            ];
-
-            file_put_contents($logPath, json_encode($riwayat, JSON_PRETTY_PRINT));
+        } catch (\Throwable $e) {
+            $errorMessage = json_encode([
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], JSON_PRETTY_PRINT);
 
             return view('Tanaman/hasil', [
                 'gambar' => '/uploads/' . $newName,
-                'label' => $result['label'] ?? 'Tidak ada label',
-                'deskripsi' => $deskripsi
-            ]);
-        } else {
-            return view('Tanaman/hasil', [
-                'gambar' => null,
                 'label' => 'Error',
-                'deskripsi' => 'File gambar tidak valid atau gagal di-upload.'
+                'deskripsi' => 'Gagal terhubung ke API FastAPI:<br><br><code>' .
+                    nl2br(htmlspecialchars($errorMessage)) . '</code>'
             ]);
         }
+
+        // Konversi deskripsi array ke HTML
+        $deskripsi = $result['deskripsi'] ?? 'Tidak ada deskripsi';
+        if (is_array($deskripsi)) {
+            $temp = '';
+            foreach ($deskripsi as $key => $val) {
+                $judul = ucfirst(str_replace('_', ' ', $key));
+                $temp .= "<strong>$judul</strong>: $val<br><br>";
+            }
+            $deskripsi = $temp;
+        }
+
+        // Validasi id_user dari session
+        $userId = session()->get('id_user');
+        if (is_array($userId) && isset($userId['id'])) {
+            $userId = $userId['id'];
+        } elseif (is_object($userId) && isset($userId->id)) {
+            $userId = $userId->id;
+        } elseif (!is_scalar($userId)) {
+            $userId = null;
+        }
+
+        // Simpan riwayat
+        $logPath = WRITEPATH . 'riwayat_tanaman.json';
+        $riwayat = file_exists($logPath) ? json_decode(file_get_contents($logPath), true) : [];
+
+        $riwayat[] = [
+            'id_user' => $userId,
+            'gambar' => '/uploads/' . $newName,
+            'label' => $result['label'],
+            'deskripsi' => strip_tags($deskripsi),
+            'waktu' => date('Y-m-d H:i:s')
+        ];
+
+        file_put_contents($logPath, json_encode($riwayat, JSON_PRETTY_PRINT));
+
+        return view('Tanaman/hasil', [
+            'gambar' => '/uploads/' . $newName,
+            'label' => $result['label'],
+            'deskripsi' => $deskripsi
+        ]);
     }
+
+    return view('Tanaman/hasil', [
+        'gambar' => null,
+        'label' => 'Error',
+        'deskripsi' => 'File gambar tidak valid atau gagal di-upload.'
+    ]);
+}
+
+
 
     //============================= RIWAYAT KHUSUS USER ====================================//
    public function riwayat()
