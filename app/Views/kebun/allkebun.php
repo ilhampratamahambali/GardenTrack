@@ -307,7 +307,7 @@
   }
 
   .plant-item:hover .plant-name {
-    color: ##00b383;
+    color: #00b383;
   }
 
   .plant-item:hover .plant-date {
